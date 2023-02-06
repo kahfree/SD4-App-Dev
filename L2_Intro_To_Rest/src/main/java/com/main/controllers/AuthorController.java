@@ -25,7 +25,6 @@ public class AuthorController {
     public List<Author> getAll() {
         return authorService.findAll();
     }
-    
     @GetMapping("/authors/{id}")
     public ResponseEntity<Author> getOne(@PathVariable long id) {
        Optional<Author> o =  authorService.findOne(id);
@@ -46,16 +45,47 @@ public class AuthorController {
         authorService.deleteByID(id);
         return new ResponseEntity(HttpStatus.OK);
     }
-    
+
     @PostMapping("/authors/")
     public ResponseEntity add(@RequestBody Author a) {
         authorService.saveAuthor(a);
         return new ResponseEntity(HttpStatus.CREATED);
     }
-    
+
     @PutMapping("/authors/")
     public ResponseEntity edit(@RequestBody Author a) {
         authorService.saveAuthor(a);
         return new ResponseEntity(HttpStatus.OK);
+    }
+
+    ///////////////////////////////////////////////////////////////////
+    @GetMapping("/authors/startswith/{prefix}")
+    public List<Author> startsWith(@PathVariable String prefix) {
+        return authorService.findFirstNameStartsWith(prefix);
+    }
+
+    @GetMapping("/authors/endswith/{suffix}")
+    public List<Author> endsWith(@PathVariable String suffix) {
+        return authorService.findFirstNameEndsWith(suffix);
+    }
+
+    @GetMapping("/authors/containing/{infix}")
+    public List<Author> containing(@PathVariable String infix) {
+        return authorService.findFirstNameContaining(infix);
+    }
+
+    @GetMapping("/authors/between/{start}/{end}")
+    public List<Author> startsWith(@PathVariable int start,@PathVariable int end) {
+        return authorService.betweenYearBornOrderedByFirstName(start,end);
+    }
+
+    @GetMapping("/authors/bornbefore/{year}")
+    public List<Author> bornbefore(@PathVariable int year) {
+        return authorService.bornBefore(year);
+    }
+
+    @GetMapping("/authors/average/yearborn")
+    public int averageYearBorn() {
+        return authorService.averageYearBorn();
     }
 }

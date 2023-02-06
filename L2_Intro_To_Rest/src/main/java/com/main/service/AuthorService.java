@@ -35,4 +35,16 @@ public class AuthorService {
         authorRepo.save(a);
     }
 
+    public List<Author> findFirstNameStartsWith(String prefix){ return authorRepo.findAllByFirstNameStartingWith(prefix); }
+
+    public List<Author> findFirstNameEndsWith(String suffix){return authorRepo.findByFirstNameEndingWith(suffix);}
+
+    public List<Author> findFirstNameContaining(String infix){return authorRepo.findByFirstNameContaining(infix);}
+
+    public List<Author> betweenYearBornOrderedByFirstName(int start,int end){return authorRepo.findByYearBornBetweenOrderByFirstName(start,end);}
+
+    public List<Author> bornBefore(int year){return authorRepo.findByYearBornBefore(year);}
+
+    public int averageYearBorn(){return authorRepo.getAverageYearBorn();}
+
 }//end class
